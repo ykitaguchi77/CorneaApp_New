@@ -28,11 +28,11 @@ struct SavedData: View {
                     .padding(.bottom)
                 
                 //saved dataをリスト形式で表示
-                //HashID: SHA-256を使用。
+                //HashID: SHA-256を使用。"yyyymmdd-ID"をハッシュ化。
                 //CoreDataのAttributeを追加するときには、スマホ内の保存データを全て削除すること
                 List {
-                    ForEach(items) { item in
-                        Text("Date: \(item.newdate!, formatter: itemFormatter), ID: \(item.newid!), Hospitals: \(item.newhospitals!), Disease\(item.newdisease!), HashID: \(item.newdateid!)")
+                    ForEach(items) {item in
+                        Text("Date: \(item.newdate!, formatter: itemFormatter), ID: \(item.newid!), Hospitals: \(item.newhospitals!), Disease\(item.newdisease!), DateID: \(item.newdateid!), HashID: \(item.newhashid!)")
                     }
                     .onDelete(perform: deleteItems)
                 }

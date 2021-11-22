@@ -79,7 +79,7 @@ struct SendData: View {
         newItem.newdateid = "\(dateFormatter.string(from:self.user.date))-\(self.user.id)"
         let dateid = Data(newItem.newdateid!.utf8)
         let hashid = SHA256.hash(data: dateid)
-        newItem.newhashid = hashid.description
+        newItem.newhashid = hashid.compactMap { String(format: "%02x", $0) }.joined()
         
         try! context.save()
         self.user.isNewData = true
