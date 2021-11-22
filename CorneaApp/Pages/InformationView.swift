@@ -13,7 +13,10 @@ struct Informations: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Environment(\.managedObjectContext) private var viewContext
     @State var isSaved = false
-
+    
+    @State var datas = ["item1", "item2", "item3"]
+    @State var itemSelection:String?
+    
     var body: some View {
         NavigationView{
                 Form{
@@ -29,19 +32,21 @@ struct Informations: View {
                         TextField("idを入力してください", text: $user.id)
                     }
                         
-                    Picker(selection: $user.selected_hospital,
-                               label: Text("施設")) {
-                        ForEach(0..<user.hospitals.count) {
-                            Text(self.user.hospitals[$0])
-                                 }
-                        }
+                        Picker(selection: $user.selected_hospital,
+                                   label: Text("施設")) {
+                            ForEach(0..<user.hospitals.count) {
+                                Text(self.user.hospitals[$0])
+                                     }
+                            }
+                    
                         
-                    Picker(selection: $user.selected_disease,
-                               label: Text("疾患")) {
-                        ForEach(0..<user.disease.count) {
-                            Text(self.user.disease[$0])
-                                }
-                        }
+                        
+                        Picker(selection: $user.selected_disease,
+                                   label: Text("疾患")) {
+                            ForEach(0..<user.disease.count) {
+                                Text(self.user.disease[$0])
+                                    }
+                            }
                         
                         HStack{
                             Text("自由記載欄")

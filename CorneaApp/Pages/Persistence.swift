@@ -15,15 +15,16 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-////        for _ in 0..<10 {
-////            let newDate = Item(context: viewContext)
-////            let newId = Item(context: viewContext)
-////            let newHospitals = Item(context: viewContext)
-////            let newDisease = Item(context: viewContext)
-////            let newFreeDisease = Item(context: viewContext)
-////            let newHashId = Item(context: viewContext)
-////            newDate.newdate = Date()
-////            //newId.newid = "aaa"
+//        for _ in 0..<10 {
+//            let newDate = Item(context: viewContext)
+//            let newId = Item(context: viewContext)
+//            let newHospitals = Item(context: viewContext)
+//            let newDisease = Item(context: viewContext)
+//            let newFreeDisease = Item(context: viewContext)
+//            let newHashId = Item(context: viewContext)
+//            let newDateId = Item(context: viewContext)
+//            newDate.newdate = Date()
+//            newId.newid = ""
 //        }
         do {
             try viewContext.save()

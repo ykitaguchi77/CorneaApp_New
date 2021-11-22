@@ -75,9 +75,7 @@ struct SendData: View {
         dateFormatter.dateStyle = .medium
         dateFormatter.dateFormat = "yyyyMMdd"
         
-        newItem.newhashid = "\(dateFormatter.string(from:self.user.date))-\(self.user.id)"
-        
-
+        newItem.newdateid = "\(dateFormatter.string(from:self.user.date))-\(self.user.id)"
 
         try! context.save()
         self.user.isNewData = true

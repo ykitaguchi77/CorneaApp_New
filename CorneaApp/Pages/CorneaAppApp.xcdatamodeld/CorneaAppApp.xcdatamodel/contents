@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19206" systemVersion="21A5534d" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A5534d" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
         <attribute name="content" optional="YES" attributeType="String"/>
         <attribute name="newdate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="newdateid" optional="YES" attributeType="String"/>
         <attribute name="newdisease" optional="YES" attributeType="String"/>
         <attribute name="newfreedisease" optional="YES" attributeType="String"/>
         <attribute name="newhashid" optional="YES" attributeType="String"/>
@@ -10,6 +11,6 @@
         <attribute name="newid" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Item" positionX="-27" positionY="18" width="128" height="134"/>
+        <element name="Item" positionX="-27" positionY="18" width="128" height="149"/>
     </elements>
 </model>

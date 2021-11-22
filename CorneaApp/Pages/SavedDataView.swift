@@ -28,9 +28,10 @@ struct SavedData: View {
                     .padding(.bottom)
                 
                 //saved dataをリスト形式で表示
+                //CoreDataのAttributeを追加するときには、スマホ内の保存データを全て削除すること
                 List {
                     ForEach(items) { item in
-                        Text("Date: \(item.newdate!, formatter: itemFormatter), ID: \(item.newid!), Hospitals: \(item.newhospitals!), Disease\(item.newdisease!), HashID: \(item.newhashid!)")
+                        Text("Date: \(item.newdate!, formatter: itemFormatter), ID: \(item.newid!), Hospitals: \(item.newhospitals!), Disease\(item.newdisease!), HashID: \(item.newdateid!)")
                     }
                     .onDelete(perform: deleteItems)
                 }

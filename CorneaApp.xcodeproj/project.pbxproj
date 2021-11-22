@@ -27,14 +27,12 @@
 		BF94CE8B262D4D9F00AAC1A3 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF94CE8A262D4D9F00AAC1A3 /* UIImageExtension.swift */; };
 		BF94CE9F262FE7E000AAC1A3 /* DateToStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF94CE9E262FE7E000AAC1A3 /* DateToStringExtension.swift */; };
 		BFA5E14327326048004CA0D8 /* CorneaAppApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BFA5E14127326048004CA0D8 /* CorneaAppApp.xcdatamodeld */; };
-		BFA5E1682733D9FC004CA0D8 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA5E1672733D9FC004CA0D8 /* ViewModel.swift */; };
 		BFA5E16A2737FF24004CA0D8 /* SavedDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA5E1692737FF24004CA0D8 /* SavedDataView.swift */; };
 		BFAC704B2637DF4300A606CE /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAC704A2637DF4300A606CE /* CameraView.swift */; };
 		BFAC70502637DF7300A606CE /* CameraActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAC704F2637DF7300A606CE /* CameraActions.swift */; };
 		BFAC70552637DF9800A606CE /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAC70542637DF9800A606CE /* CameraViewController.swift */; };
 		BFAC705A2637E19E00A606CE /* CameraControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAC70592637E19E00A606CE /* CameraControllerDelegate.swift */; };
 		BFAC70622637E20400A606CE /* UserEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAC70612637E20400A606CE /* UserEvents.swift */; };
-		BFD88350271E68940062815E /* SavedDataView_backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD8834F271E68940062815E /* SavedDataView_backup.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,7 +81,6 @@
 		BF94CE8A262D4D9F00AAC1A3 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		BF94CE9E262FE7E000AAC1A3 /* DateToStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateToStringExtension.swift; sourceTree = "<group>"; };
 		BFA5E14227326048004CA0D8 /* CorneaAppApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CorneaAppApp.xcdatamodel; sourceTree = "<group>"; };
-		BFA5E1672733D9FC004CA0D8 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		BFA5E1692737FF24004CA0D8 /* SavedDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDataView.swift; sourceTree = "<group>"; };
 		BFAC704A2637DF4300A606CE /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		BFAC704F2637DF7300A606CE /* CameraActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraActions.swift; sourceTree = "<group>"; };
@@ -92,7 +89,6 @@
 		BFAC70612637E20400A606CE /* UserEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEvents.swift; sourceTree = "<group>"; };
 		BFB2EC502651FE940002815D /* CorneaApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CorneaApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		BFB2EC532651FEDB0002815D /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		BFD8834F271E68940062815E /* SavedDataView_backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedDataView_backup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -211,12 +207,10 @@
 		BF94CDA7262C187A00AAC1A3 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
-				BFA5E1672733D9FC004CA0D8 /* ViewModel.swift */,
 				BF94CD5F262BF98E00AAC1A3 /* CorneaAppApp.swift */,
 				BF94CD61262BF98E00AAC1A3 /* ContentView.swift */,
 				BF94CE02262CFD5C00AAC1A3 /* CameraPage.swift */,
 				BF94CDBE262C1CB400AAC1A3 /* InformationView.swift */,
-				BFD8834F271E68940062815E /* SavedDataView_backup.swift */,
 				BFA5E1692737FF24004CA0D8 /* SavedDataView.swift */,
 				BF94CDC3262C1CC000AAC1A3 /* SendDataView.swift */,
 				BF94CD68262BF98F00AAC1A3 /* Persistence.swift */,
@@ -418,7 +412,6 @@
 				BF94CE03262CFD5C00AAC1A3 /* CameraPage.swift in Sources */,
 				BFAC705A2637E19E00A606CE /* CameraControllerDelegate.swift in Sources */,
 				BF94CE6E262D4B8800AAC1A3 /* ConstHolder.swift in Sources */,
-				BFD88350271E68940062815E /* SavedDataView_backup.swift in Sources */,
 				BF94CD60262BF98E00AAC1A3 /* CorneaAppApp.swift in Sources */,
 				BFAC70622637E20400A606CE /* UserEvents.swift in Sources */,
 				BF94CE79262D4D3F00AAC1A3 /* CGImageExtension.swift in Sources */,
@@ -426,7 +419,6 @@
 				BF94CE9F262FE7E000AAC1A3 /* DateToStringExtension.swift in Sources */,
 				BF94CE8B262D4D9F00AAC1A3 /* UIImageExtension.swift in Sources */,
 				BF94CE86262D4D8000AAC1A3 /* StringExtension.swift in Sources */,
-				BFA5E1682733D9FC004CA0D8 /* ViewModel.swift in Sources */,
 				BFAC704B2637DF4300A606CE /* CameraView.swift in Sources */,
 				BF94CE81262D4D6700AAC1A3 /* CGRectExtension.swift in Sources */,
 				BF94CDBF262C1CB400AAC1A3 /* InformationView.swift in Sources */,
@@ -732,7 +724,7 @@
 				BF94CD85262BF99000AAC1A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		BF94CD86262BF99000AAC1A3 /* Build configuration list for PBXNativeTarget "CorneaApp" */ = {
 			isa = XCConfigurationList;
@@ -741,7 +733,7 @@
 				BF94CD88262BF99000AAC1A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		BF94CD89262BF99000AAC1A3 /* Build configuration list for PBXNativeTarget "CorneaAppTests" */ = {
 			isa = XCConfigurationList;
@@ -750,7 +742,7 @@
 				BF94CD8B262BF99000AAC1A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		BF94CD8C262BF99000AAC1A3 /* Build configuration list for PBXNativeTarget "CorneaAppUITests" */ = {
 			isa = XCConfigurationList;
@@ -759,7 +751,7 @@
 				BF94CD8E262BF99000AAC1A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 

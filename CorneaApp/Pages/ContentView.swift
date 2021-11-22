@@ -19,8 +19,7 @@ class User : ObservableObject {
     @Published var free_disease: String = ""
 
     @Published var hospitals: [String] = ["", "筑波大", "大阪大", "東京歯科大市川", "鳥取大", "宮田眼科", "順天堂大", "ツカザキ病院", "広島大", "新潟大", "富山大", "福島県立医大", "東京医大"]
-    @Published var disease: [String] = ["", "角膜ジストロフィー", "角膜細菌感染", "角膜真菌感染", "周辺角膜潰瘍", "翼状片"]
-    
+    @Published var disease: [String] = ["", "正常", "", "<<感染性>>", "アメーバ", "細菌", "真菌", "上皮型ヘルペス", "", "<<非感染性>>", "カタル性", "実質型ヘルペス", "フリクテン", "モーレン", "非感染その他", "<<腫瘍>>", "翼状編", "角結膜腫瘍", "眼瞼腫瘍", "", "<<沈着>>", "アミロイド", "帯状", "顆粒状", "格子状", "膠様滴状", "斑状", "", "<<その他>>", "水疱性角膜症", "白内障", "緑内障発作", "瘢痕", "分類不能（自由記載）"]
     @Published var isNewData = false
     @Published var isSendData = false
     }
