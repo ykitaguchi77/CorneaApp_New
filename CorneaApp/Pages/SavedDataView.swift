@@ -7,7 +7,7 @@
 
 import SwiftUI
 import CoreData
-
+import CryptoKit
 
 //変数を定義
 struct SavedData: View {
@@ -28,6 +28,7 @@ struct SavedData: View {
                     .padding(.bottom)
                 
                 //saved dataをリスト形式で表示
+                //HashID: SHA-256を使用。
                 //CoreDataのAttributeを追加するときには、スマホ内の保存データを全て削除すること
                 List {
                     ForEach(items) { item in

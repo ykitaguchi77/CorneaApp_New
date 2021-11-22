@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import CryptoKit
 
 struct SendData: View {
     @ObservedObject var user: User
@@ -76,7 +77,10 @@ struct SendData: View {
         dateFormatter.dateFormat = "yyyyMMdd"
         
         newItem.newdateid = "\(dateFormatter.string(from:self.user.date))-\(self.user.id)"
-
+        let dateid = Data(newItem.newdateid!.utf8)
+        let hashid = SHA256.hash(data: dateid)
+        newItem.newhashid = hashid.description
+        
         try! context.save()
         self.user.isNewData = true
         }
