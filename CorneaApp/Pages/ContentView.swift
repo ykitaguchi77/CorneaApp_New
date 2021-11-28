@@ -4,6 +4,8 @@
 //
 //  Created by Yoshiyuki Kitaguchi on 2021/04/18.
 //
+//写真Coredata参考サイト：https://tomato-develop.com/swiftui-camera-photo-library-core-data/
+//
 
 
 import SwiftUI
@@ -17,6 +19,7 @@ class User : ObservableObject {
     @Published var selected_hospital: Int = 0
     @Published var selected_disease: Int = 0
     @Published var free_disease: String = ""
+    @Published var imageData:Data = Data.init()
 
     @Published var hospitals: [String] = ["", "筑波大", "大阪大", "東京歯科大市川", "鳥取大", "宮田眼科", "順天堂大", "ツカザキ病院", "広島大", "新潟大", "富山大", "福島県立医大", "東京医大"]
     @Published var disease: [String] = ["", "正常", "", "<<感染性>>", "アメーバ", "細菌", "真菌", "上皮型ヘルペス", "", "<<非感染性>>", "カタル性角膜浸潤", "実質型ヘルペス", "フリクテン", "モーレン潰瘍", "非感染その他", "", "<<腫瘍>>", "翼状片", "角結膜腫瘍", "", "<<沈着>>", "アミロイドーシス", "帯状角膜変性", "顆粒状角膜ジストロフィー", "格子状角膜ジストロフィー", "膠様滴状角膜ジストロフィー", "斑状角膜ジストロフィー", "瞼裂斑", "", "<<その他>>","瘢痕", "水疱性角膜症", "白内障", "緑内障発作", "分類不能（自由記載）"]

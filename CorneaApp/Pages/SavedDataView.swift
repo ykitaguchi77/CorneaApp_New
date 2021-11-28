@@ -47,7 +47,7 @@ struct SavedData: View {
             }
         }
     }
-
+    
 
 
     private func deleteItems(offsets: IndexSet) {

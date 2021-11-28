@@ -41,6 +41,7 @@ struct SendData: View {
                 Button(action: {
                     SetCoreData(context: viewContext)
                     //SendDataset()
+                    SaveToDoc()
                     self.presentationMode.wrappedValue.dismiss()
                     self.user.isSendData = true
                     
@@ -70,6 +71,8 @@ struct SendData: View {
         newItem.newhospitals = self.user.hospitals[user.selected_hospital]
         newItem.newdisease = self.user.disease[user.selected_disease]
         newItem.newfreedisease = self.user.free_disease
+
+        
         
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ja_JP")
@@ -79,7 +82,13 @@ struct SendData: View {
         newItem.newdateid = "\(dateFormatter.string(from:self.user.date))-\(self.user.id)"
         let dateid = Data(newItem.newdateid!.utf8)
         let hashid = SHA256.hash(data: dateid)
-        newItem.newhashid = hashid.compactMap { String(format: "%02x", $0) }.joined()
+        
+        //idが空欄の場合にはhashIDも空欄のままにする
+        if self.user.id == ""{
+            newItem.newhashid = ""
+        } else {
+            newItem.newhashid = hashid.compactMap { String(format: "%02x", $0) }.joined()
+        }
         
         try! context.save()
         self.user.isNewData = true
@@ -186,33 +195,70 @@ struct SendData: View {
     }
     
     
-    /*
-    func getIsLandscape() -> Bool{
-        var isLandscape = false
-        switch UIApplication.shared.windows.first?.windowScene?.interfaceOrientation{
-        case .portrait:
-            isLandscape = false
-        case .portraitUpsideDown:
-            isLandscape = false
-        case .landscapeLeft:
-            isLandscape = true
-        case .landscapeRight:
-            isLandscape = true
-        default:
-            print("unknown orientation")
-            break
+    //private func saveToDoc (image: UIImage, fileName: String ) -> Bool{
+    public func SaveToDoc () -> Bool{
+        let image = ResultHolder.GetInstance().GetUIImages()
+        //pngで保存する場合
+        let pngImageData = UIImage.pngData(image[0])
+        // jpgで保存する場合
+        // let jpgImageData = UIImageJPEGRepresentation(image, 1.0)
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        //let documentsURL = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0]
+        let fileURL = documentsURL.appendingPathComponent("test.png")
+        print(fileURL)
+        do {
+            try pngImageData()!.write(to: fileURL)
+            print("SaveToDoc Done!")
+        } catch {
+            //エラー処理
+            return false
         }
-        
-        return isLandscape
+        return true
     }
-    */
+    
+    //ドキュメントへの保存 参考 https://develop.hateblo.jp/entry/iosapp-uiimage-save
+    //使い方としては以下の通り：saveImage(image: "UIImage", path: "ファイル名")
+    //画像保存
+        // DocumentディレクトリのfileURLを取得
+//    func getDocumentsURL() -> URL? {
+//        let path = FileManager.default.urls(for: .documentDirectory,
+//                                            in: .userDomainMask)
+//        return path.first
+//    }
+//    // ディレクトリのパスにファイル名をつなげてファイルのフルパスを作る
+//    func fileInDocumentsDirectory(filename: String) -> String {
+//        let fileURL = getDocumentsURL()!.appendingPathComponent(filename)
+//        return fileURL.path
+//    }
+    
+
+    
+//    func documentDirectoryPath() -> URL? {
+//        let path = FileManager.default.urls(for: .documentDirectory,
+//                                            in: .userDomainMask)
+//        return path.first
+//    }
+//
+//    public func SaveToDocument(){func savePng(_ image: UIImage) {
+//        if let pngData = image.pngData(),
+//            let path = documentDirectoryPath()?.appendingPathComponent("examplePng.png") {
+//            try? pngData.write(to: path)
+//        }
+//    }
+    
+    
+//    //画像を保存するメソッド
+//    func saveImageToDoc (path: String ) -> Bool {
+//        let images = ResultHolder.GetInstance().GetUIImages()
+//        let pngImageData = images.pngData()
+//        do {
+//            try pngImageData!.write(to: fileInDocumentsDirectory(filename:path), options: .atomic)
+//        } catch {
+//            print(error)
+//            return false
+//        }
+//        return true
+//    }
 }
 
 
-/*
-struct SendData_Previews: PreviewProvider {
-    static var previews: some View {
-        SendData()
-    }
-}
-*/
