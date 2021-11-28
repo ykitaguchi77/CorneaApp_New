@@ -54,6 +54,8 @@ class ResultHolder{
     public func SetImage(index: Int, cgImage: CGImage){
         Images[index] = cgImage
     }
+    
+    
     public func GetImageJsons() -> [String]{
         var imageJsons:[String] = []
         let uiimages = GetUIImages()

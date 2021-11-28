@@ -660,6 +660,7 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
 }    
 
 
+//ResultHolderに格納
 public func setImage(cgImage: CGImage){
     ResultHolder.GetInstance().SetImage(index: 0, cgImage: cgImage)
 }
