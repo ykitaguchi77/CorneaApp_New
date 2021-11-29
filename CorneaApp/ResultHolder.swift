@@ -80,9 +80,9 @@ class ResultHolder{
     public func SetAnswer(q1:String, q2:String, q3:String, q4:String, q5:String){
         Answers["q1"] = q1 //date
         Answers["q2"] = q2 //ID
-        Answers["q3"] = q2 //hospital
-        Answers["q4"] = q2 //disease
-        Answers["q5"] = q2 //free
+        Answers["q3"] = q3 //hospital
+        Answers["q4"] = q4 //disease
+        Answers["q5"] = q5 //free
     }
 
     public func GetAnswerJson() -> String{
@@ -93,6 +93,7 @@ class ResultHolder{
         data.pq4 = Answers["q4"] ?? ""
         data.pq5 = Answers["q5"] ?? ""
         let jsonEncoder = JSONEncoder()
+        jsonEncoder.outputFormatting = .sortedKeys
         let jsonData = (try? jsonEncoder.encode(data)) ?? Data()
         let json = String(data: jsonData, encoding: String.Encoding.utf8)!
         return json

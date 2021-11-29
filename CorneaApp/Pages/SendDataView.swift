@@ -45,6 +45,7 @@ struct SendData: View {
                     }else{
                         showingAlert = false
                         SetCoreData(context: viewContext)
+                        SetData()
                         //SendDataset()
                         SaveToDoc()
                         self.presentationMode.wrappedValue.dismiss()
@@ -78,8 +79,6 @@ struct SendData: View {
         newItem.newdisease = self.user.disease[user.selected_disease]
         newItem.newfreedisease = self.user.free_disease
 
-        
-        
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ja_JP")
         dateFormatter.dateStyle = .medium
@@ -89,16 +88,13 @@ struct SendData: View {
         let dateid = Data(newItem.newdateid!.utf8)
         let hashid = SHA256.hash(data: dateid)
         
-        //idが空欄の場合にはhashIDも空欄のままにする
-        if self.user.id == ""{
-            newItem.newhashid = ""
-        } else {
-            newItem.newhashid = hashid.compactMap { String(format: "%02x", $0) }.joined()
-            try! context.save()
-            self.user.isNewData = true
+        user.hashid = hashid.compactMap { String(format: "%02x", $0) }.joined()
+        newItem.newhashid = self.user.hashid
+        
+        try! context.save()
+        self.user.isNewData = true
         }
 
-        }
     
     
     class QuestionAnswerData: Codable{
@@ -144,25 +140,44 @@ struct SendData: View {
     //private func saveToDoc (image: UIImage, fileName: String ) -> Bool{
     public func SaveToDoc () -> Bool{
         let images = ResultHolder.GetInstance().GetUIImages()
-        //pngで保存する場合
+        let jsonfile = ResultHolder.GetInstance().GetAnswerJson()
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        //let directory = self.user.hashid+".png"
+        let fileURL = documentsURL.appendingPathComponent(self.user.hashid+".png")
+        //print(fileURL)
+        //pngで保存
         for i in 0..<images.count{
             let pngImageData = UIImage.pngData(images[i])
             // jpgで保存する場合
             // let jpgImageData = UIImageJPEGRepresentation(image, 1.0)
-            let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            //let documentsURL = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask)[0]
-            let fileURL = documentsURL.appendingPathComponent("test.png")
-            print(fileURL)
+
             do {
                 try pngImageData()!.write(to: fileURL)
-                print("SaveToDoc Done!")
+                //print("SaveToDoc Done!")
             } catch {
                 //エラー処理
                 return false
             }
-            return true
-    
+        
+        let fileURL2 = documentsURL.appendingPathComponent(self.user.hashid+".json")
+        print(fileURL2)
+        do {
+            try jsonfile.write(to: fileURL2, atomically: true, encoding: String.Encoding.utf8)
+            print("SaveToDoc Done!")
+        } catch {
+            //エラー処理
+            print("Jsonを保存できませんでした")
+            return false
         }
+        return true
+    }
+        
+        
+        
+        
+        
+        
+        
         return true
     }
 
@@ -197,23 +212,23 @@ struct SendData: View {
     
     public func stringDate()->String{
         let df = DateFormatter()
-        df.dateFormat = "yyyy/MM/dd"
+        df.dateFormat = "yyyyMMdd"
         let stringDate = df.string(from: user.date)
         return stringDate
     }
     
     
-    /*
+    
     public func SetData()-> String{
         //date形式をstringに変換
         let df = DateFormatter()
-        df.dateFormat = "yyyy/MM/dd"
+        df.dateFormat = "yyyyMMdd"
         let stringDate = df.string(from: user.date)
         
         //それぞれの項目をdataに格納
         let data = QuestionAnswerData()
         data.pq1 = stringDate
-        data.pq2 = user.id
+        data.pq2 = user.hashid
         data.pq3 = self.user.hospitals[user.selected_hospital]
         data.pq4 = self.user.disease[user.selected_disease]
         data.pq5 = user.free_disease
@@ -224,7 +239,7 @@ struct SendData: View {
         let json = String(data: jsonData, encoding: String.Encoding.utf8)!
         return json
     }
-    */
+    
 
 }
 
