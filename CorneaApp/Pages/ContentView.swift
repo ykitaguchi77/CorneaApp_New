@@ -137,7 +137,7 @@ struct ContentView: View {
             Button(action: { self.newPatient = true /*またはself.show.toggle() */ }) {
                 HStack{
                     Image(systemName: "stop.circle")
-                    Text("終了")
+                    Text("次患者")
                 }
                     .foregroundColor(Color.white)
                     .font(Font.largeTitle)

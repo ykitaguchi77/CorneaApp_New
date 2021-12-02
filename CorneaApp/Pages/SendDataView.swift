@@ -45,11 +45,12 @@ struct SendData: View {
                     }else{
                         showingAlert = false
                         SetCoreData(context: viewContext)
-                        SetData()
+                        SaveToResultHolder()
                         //SendDataset()
                         SaveToDoc()
                         self.presentationMode.wrappedValue.dismiss()
                         self.user.isSendData = true
+
                     }
                     }) {
                         Text("送信")
@@ -60,16 +61,17 @@ struct SendData: View {
                     .frame(minWidth:0, maxWidth:CGFloat.infinity, minHeight: 75)
                     .background(Color.black)
                     .padding()
-                    .onAppear{
-                        ResultHolder.GetInstance().SetAnswer(q1: stringDate(), q2: user.id, q3: self.user.hospitals[user.selected_hospital], q4: self.user.disease[user.selected_disease], q5: user.free_disease)
-                    //ResultHolderにテキストデータを格納
-                }
               }
         
             
             }
             
-
+    
+    //ResultHolderにテキストデータを格納
+    public func SaveToResultHolder(){
+        ResultHolder.GetInstance().SetAnswer(q1: stringDate(), q2: user.hashid, q3: user.id, q4: self.user.hospitals[user.selected_hospital], q5: self.user.disease[user.selected_disease], q6: user.free_disease)
+    }
+    
     
     public func SetCoreData(context: NSManagedObjectContext){
         let newItem = Item(context: viewContext)
@@ -89,21 +91,12 @@ struct SendData: View {
         let hashid = SHA256.hash(data: dateid)
         
         user.hashid = hashid.compactMap { String(format: "%02x", $0) }.joined()
+        //print(self.user.hashid)
         newItem.newhashid = self.user.hashid
         
         try! context.save()
         self.user.isNewData = true
         }
-
-    
-    
-    class QuestionAnswerData: Codable{
-        var pq1 = ""
-        var pq2 = ""
-        var pq3 = ""
-        var pq4 = ""
-        var pq5 = ""
-    }
 
     
     public func SendDataset(){
@@ -153,17 +146,16 @@ struct SendData: View {
 
             do {
                 try pngImageData()!.write(to: fileURL)
-                //print("SaveToDoc Done!")
+                print("successfully saved PNG to doc")
             } catch {
                 //エラー処理
                 return false
             }
         
         let fileURL2 = documentsURL.appendingPathComponent(self.user.hashid+".json")
-        print(fileURL2)
         do {
             try jsonfile.write(to: fileURL2, atomically: true, encoding: String.Encoding.utf8)
-            print("SaveToDoc Done!")
+            print("successfully saved json to doc")
         } catch {
             //エラー処理
             print("Jsonを保存できませんでした")
@@ -217,29 +209,38 @@ struct SendData: View {
         return stringDate
     }
     
+//    class QuestionAnswerData: Codable{
+//        var pq1 = ""
+//        var pq2 = ""
+//        var pq3 = ""
+//        var pq4 = ""
+//        var pq5 = ""
+//        var pq6 = ""
+//    }
     
     
-    public func SetData()-> String{
-        //date形式をstringに変換
-        let df = DateFormatter()
-        df.dateFormat = "yyyyMMdd"
-        let stringDate = df.string(from: user.date)
-        
-        //それぞれの項目をdataに格納
-        let data = QuestionAnswerData()
-        data.pq1 = stringDate
-        data.pq2 = user.hashid
-        data.pq3 = self.user.hospitals[user.selected_hospital]
-        data.pq4 = self.user.disease[user.selected_disease]
-        data.pq5 = user.free_disease
-        
-        //jsonに変換
-        let jsonEncoder = JSONEncoder()
-        let jsonData = (try? jsonEncoder.encode(data)) ?? Data()
-        let json = String(data: jsonData, encoding: String.Encoding.utf8)!
-        return json
-    }
-    
+//    public func SetData()-> String{
+//        //date形式をstringに変換
+//        let df = DateFormatter()
+//        df.dateFormat = "yyyyMMdd"
+//        let stringDate = df.string(from: user.date)
+//
+//        //それぞれの項目をdataに格納
+//        let data = QuestionAnswerData()
+//        data.pq1 = stringDate
+//        data.pq2 = user.hashid
+//        data.pq3 = user.id
+//        data.pq4 = self.user.hospitals[user.selected_hospital]
+//        data.pq5 = self.user.disease[user.selected_disease]
+//        data.pq6 = user.free_disease
+//
+//        //jsonに変換
+//        let jsonEncoder = JSONEncoder()
+//        let jsonData = (try? jsonEncoder.encode(data)) ?? Data()
+//        let json = String(data: jsonData, encoding: String.Encoding.utf8)!
+//        return json
+//    }
+
 
 }
 

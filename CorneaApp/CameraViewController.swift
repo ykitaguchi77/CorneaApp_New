@@ -15,9 +15,9 @@
 import UIKit
 import AVFoundation
 import Photos
+import SwiftUI
 
 public class PreviewView: UIView {
-    
     //プレビューレイヤーを生成
     var videoPreviewLayer: AVCaptureVideoPreviewLayer {
         guard let layer = layer as? AVCaptureVideoPreviewLayer else {
@@ -140,6 +140,7 @@ public class CameraViewController: UIViewController {
     /// Photo File Output variable
     private var photoOutput: AVCapturePhotoOutput?
     
+    
     /// Video Device variable
     private var videoDevice: AVCaptureDevice?
     
@@ -155,6 +156,7 @@ public class CameraViewController: UIViewController {
     private let videoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera], mediaType: .video, position: .unspecified)
     
     // MARK: View Controller Life Cycle
+
     override public func viewDidLoad() {
         super.viewDidLoad()
         
@@ -311,6 +313,7 @@ public class CameraViewController: UIViewController {
     // Call this on the session queue.
     /// - Tag: ConfigureSession
     private func configureSession() {
+
         if setupResult != .success {
             return
         }
@@ -327,8 +330,9 @@ public class CameraViewController: UIViewController {
         do {
             var defaultVideoDevice: AVCaptureDevice?
             
+            //カメラの指定
             // Choose the back dual camera, if available, otherwise default to a wide angle camera.
-            if let preferredCameraDevice = AVCaptureDevice.default(preferredStartingCameraType!, for: .video, position: preferredStartingCameraPosition!) {
+            if let preferredCameraDevice = AVCaptureDevice.default(.builtInTripleCamera, for: .video, position: .back) {
                 defaultVideoDevice = preferredCameraDevice
             } else if let dualCameraDevice = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: .back) {
                 defaultVideoDevice = dualCameraDevice
@@ -481,6 +485,8 @@ public class CameraViewController: UIViewController {
             
             // TODO: check this situation
             switch currentPosition {
+            
+            //front-back交代時のカメラ指定
             case .unspecified, .none, .front:
                 preferredPosition = .back
                 preferredDeviceType = .builtInDualCamera
@@ -509,7 +515,6 @@ public class CameraViewController: UIViewController {
                     let captureDeviceInput = try AVCaptureDeviceInput(device: videoDevice)
                     
                     self.session.beginConfiguration()
-                    
                     // Remove the existing device input first, because AVCaptureSession doesn't support
                     // simultaneous use of the rear and front cameras.
                     self.session.removeInput(self.videoDeviceInput!)
@@ -559,6 +564,8 @@ public class CameraViewController: UIViewController {
             self.delegate?.didChangeFlashMode()
         }
     }
+
+    
     
     public func toggleMovieRecording() {
         guard let movieFileOutput = self.movieFileOutput else {
@@ -767,7 +774,6 @@ extension CameraViewController {
             // Ignore taps
             return
         }
-
         let screenSize = previewView.bounds.size
         let tapPoint = tap.location(in: previewView)
         let x = tapPoint.y / screenSize.height
@@ -804,7 +810,9 @@ extension CameraViewController {
             // Ignore double taps
             return
         }
+        print("double tap")
         rotateCamera()
+
     }
     
     /// Handle pinch gesture
@@ -813,11 +821,12 @@ extension CameraViewController {
             //ignore pinch
             return
         }
-        do {
+        do{
+            print("pinch")
             let captureDevice = videoDeviceInput?.device
             try captureDevice?.lockForConfiguration()
             
-            zoomScale = min(maxZoomScale, max(1.0, min(beginZoomScale * pinch.scale,  captureDevice!.activeFormat.videoMaxZoomFactor)))
+            zoomScale = min(maxZoomScale, max(10.0, min(beginZoomScale * pinch.scale,  captureDevice!.activeFormat.videoMaxZoomFactor)))
             
             captureDevice?.videoZoomFactor = zoomScale
             
@@ -834,6 +843,9 @@ extension CameraViewController {
     }
     
     fileprivate func addGestureRecognizers() {
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(zoomGesture(pinch:)))
+        pinchGesture.delegate = self
+        previewView.addGestureRecognizer(pinchGesture)
         
         let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(singleTapGesture(tap:)))
         singleTapGesture.numberOfTapsRequired = 1
@@ -845,11 +857,9 @@ extension CameraViewController {
         doubleTapGesture.delegate = self
         previewView.addGestureRecognizer(doubleTapGesture)
         
-        singleTapGesture.require(toFail: doubleTapGesture)
+        //singleTapGesture.require(toFail: doubleTapGesture)
         
-        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(zoomGesture(pinch:)))
-        pinchGesture.delegate = self
-        previewView.addGestureRecognizer(pinchGesture)
+
         
         
         //        panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture(pan:)))
